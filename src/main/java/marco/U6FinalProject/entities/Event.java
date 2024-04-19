@@ -26,7 +26,10 @@ public class Event {
     private String eventPlace;
     @Setter
     private int placesAvailable;
-    //volevo provare tramite la relazione per avere anche una tabella che tenesse traccia delle prenotazioni ma non ho tempo per terminare il @Post poi sul controller.
+    //volevo provare tramite la relazione per avere anche una tabella che tenesse traccia delle prenotazioni ma non ho tempo per terminare il @Post poi
+    // sull EventController.
+    // anche molti errori vanno sul 500 anche se i messaggi
+    //vengono restituiti correttamente, da ricontrollare anche le Exceptions
     @ManyToMany
     @JoinTable(
             name = "user_event",
