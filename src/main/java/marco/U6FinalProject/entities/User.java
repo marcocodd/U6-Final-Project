@@ -31,13 +31,16 @@ public class User implements UserDetails {
     @Setter
     @Enumerated(EnumType.STRING)
     private Role role;
+    @ManyToMany(mappedBy = "users")
+    @Setter
+    private List<Event> events;
 
     public User(String name, String surname, String email, String password) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
-        this.role = Role.ORGANIZER;
+        this.role = Role.USER;
     }
 
     @Override

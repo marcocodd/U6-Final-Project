@@ -5,6 +5,7 @@ import marco.U6FinalProject.exceptions.BadRequestException;
 import marco.U6FinalProject.payloads.NewEventDTO;
 import marco.U6FinalProject.payloads.NewEventResponseDTO;
 import marco.U6FinalProject.services.EventsService;
+import marco.U6FinalProject.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -17,14 +18,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/events")
 public class EventController {
     @Autowired
-    EventsService eventsService;
+    private EventsService eventsService;
+    @Autowired
+    private UsersService usersService;
 
 
     @GetMapping
     @PreAuthorize("hasAnyAuthority('USER','ORGANIZER')")
-    public Page<Event> getAllUsers(@RequestParam(defaultValue = "0") int page,
-                                   @RequestParam(defaultValue = "10") int size,
-                                   @RequestParam(defaultValue = "id") String sortBy) {
+    public Page<Event> getAllEvents(@RequestParam(defaultValue = "0") int page,
+                                    @RequestParam(defaultValue = "10") int size,
+                                    @RequestParam(defaultValue = "id") String sortBy) {
         return this.eventsService.getEvents(page, size, sortBy);
     }
 
@@ -37,6 +40,9 @@ public class EventController {
         }
         return new NewEventResponseDTO(this.eventsService.save(body).getId());
     }
+
+    // per prenotazione evento
+
 
     @PutMapping("/{eventId}")
     @PreAuthorize("hasAuthority('ORGANIZER')")
@@ -51,6 +57,7 @@ public class EventController {
         this.eventsService.findByIdAndDelete(eventId);
     }
 
-
 }
+
+
 

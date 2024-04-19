@@ -30,19 +30,19 @@ public class ExceptionsHandler {
     }
 
     @ExceptionHandler(UnauthorizedException.class)
-    @ResponseStatus(HttpStatus.UNAUTHORIZED) // 401
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ErrorsResponseDTO handleUnauthorized(UnauthorizedException exception) {
         return new ErrorsResponseDTO(exception.getMessage(), LocalDateTime.now());
     }
 
     @ExceptionHandler(AccessDeniedException.class)
-    @ResponseStatus(HttpStatus.FORBIDDEN) // 403
+    @ResponseStatus(HttpStatus.FORBIDDEN)
     public ErrorsResponseDTO handleForbidden(AccessDeniedException exception) {
         return new ErrorsResponseDTO("Non hai i permessi necessari", LocalDateTime.now());
     }
 
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) // 500
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorsResponseDTO handleGeneralErrors(Exception exception) {
         exception.printStackTrace();
         return new ErrorsResponseDTO("Problema lato server! Riprova più tardi, sistemeremo il prima possibile", LocalDateTime.now());
