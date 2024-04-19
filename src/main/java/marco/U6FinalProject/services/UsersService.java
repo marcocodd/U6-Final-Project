@@ -25,4 +25,8 @@ public class UsersService {
     public User findById(Long userId) {
         return this.usersDAO.findById(userId).orElseThrow(() -> new NotFoundException(userId));
     }
+
+    public User findByEmail(String email) {
+        return usersDAO.findByEmail(email).orElseThrow(() -> new NotFoundException("Utente non registrato"));
+    }
 }
