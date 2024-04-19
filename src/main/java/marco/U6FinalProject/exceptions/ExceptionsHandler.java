@@ -23,27 +23,27 @@ public class ExceptionsHandler {
     public ErrorsResponseDTO handleBadRequestEx(BadRequestException exception) {
         if (exception.getErrorsList() != null) {
             String message = exception.getErrorsList().stream().map(objectError -> objectError.getDefaultMessage()).collect(Collectors.joining(". "));
-            return new ErrorsResponseDTO(message,LocalDateTime.now())
-        }
-        else{
-            return new ErrorsResponseDTO(exception.getMessage(),LocalDateTime.now());
+            return new ErrorsResponseDTO(message, LocalDateTime.now());
+        } else {
+            return new ErrorsResponseDTO(exception.getMessage(), LocalDateTime.now());
         }
     }
 
     @ExceptionHandler(UnauthorizedException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED) // 401
-    public ErrorsResponseDTO handleUnauthorized(UnauthorizedException exception){
+    public ErrorsResponseDTO handleUnauthorized(UnauthorizedException exception) {
         return new ErrorsResponseDTO(exception.getMessage(), LocalDateTime.now());
     }
 
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN) // 403
-    public ErrorsResponseDTO handleForbidden(AccessDeniedException exception){
+    public ErrorsResponseDTO handleForbidden(AccessDeniedException exception) {
         return new ErrorsResponseDTO("Non hai i permessi necessari", LocalDateTime.now());
     }
+
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) // 500
-    public ErrorsResponseDTO handleGeneralErrors(Exception exception){
+    public ErrorsResponseDTO handleGeneralErrors(Exception exception) {
         exception.printStackTrace();
         return new ErrorsResponseDTO("Problema lato server! Riprova più tardi, sistemeremo il prima possibile", LocalDateTime.now());
     }
