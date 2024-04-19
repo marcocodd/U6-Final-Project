@@ -6,6 +6,10 @@ import marco.U6FinalProject.exceptions.NotFoundException;
 import marco.U6FinalProject.payloads.NewEventDTO;
 import marco.U6FinalProject.repositories.EventsDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -36,5 +40,11 @@ public class EventsService {
     public void findByIdAndDelete(Long eventId) {
         Event found = this.findById(eventId);
         this.eventsDAO.delete(found);
+    }
+
+    public Page<Event> getEvents(int page, int size, String sortBy) {
+        if (size > 100) size = 100;
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        return this.eventsDAO.findAll(pageable);
     }
 }
