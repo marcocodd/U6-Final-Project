@@ -2,6 +2,7 @@ package marco.U6FinalProject.services;
 
 import marco.U6FinalProject.entities.User;
 import marco.U6FinalProject.exceptions.BadRequestException;
+import marco.U6FinalProject.exceptions.NotFoundException;
 import marco.U6FinalProject.payloads.NewUserDTO;
 import marco.U6FinalProject.repositories.UsersDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,8 @@ public class UsersService {
         User newUser = new User(body.name(), body.surname(), body.email(), body.password());
         return usersDAO.save(newUser);
     }
-    
+
+    public User findById(Long userId) {
+        return this.usersDAO.findById(userId).orElseThrow(() -> new NotFoundException(userId));
+    }
 }
