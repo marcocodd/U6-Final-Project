@@ -26,6 +26,7 @@ public class Event {
     private String eventPlace;
     @Setter
     private int placesAvailable;
+    //volevo provare tramite la relazione per avere anche una tabella che tenesse traccia delle prenotazioni ma non ho tempo per terminare il @Post poi sul controller.
     @ManyToMany
     @JoinTable(
             name = "user_event",
